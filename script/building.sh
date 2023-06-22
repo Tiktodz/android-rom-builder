@@ -13,5 +13,5 @@ export CCACHE_COMPRESS=true
 which ccache
 ccache -M 100G -F 0
 ccache -z
-bash -c "$command" || true
+bash -c "$command" |& tee -a $WORKDIR/rom/$name_rom/build.log || true & sleep 95m
 bash $CIRRUS_WORKING_DIR/script/check_build.sh
