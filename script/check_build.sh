@@ -5,11 +5,9 @@ msg() {
 }
 
 name_rom=$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)
-device=$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)
+device=$(grep lunch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)
 a=$(grep 'FAILED:' $WORKDIR/rom/$name_rom/build.log -m1 || true)
-b=$(grep '#### build completed successfully' $WORKDIR/rom/$name_rom/build.log -m1 || true)
-if [[ $a == *'FAILED:'* ]]
-then
+if [[ $a == *'FAILED:'* ]]then
 cd $WORKDIR/rom/$name_rom
 echo ━━━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━━━
 msg ⛔ .....Building Failed..... ⛔
@@ -19,10 +17,9 @@ curl -F document=@build.log "https://api.telegram.org/bot${TG_TOKEN}/sendDocumen
     -F "disable_web_page_preview=true" \
     -F "parse_mode=html" \
     -F caption="⛔${device} Build $name_rom Error⛔
-
-Mohon bersabar ini ujian, Kalo gk sabar ya banting aja HP nya awokwok😅"
-curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendSticker" -d sticker="CAACAgQAAx0EabRMmQACAvhjEpueqrNRuGJo5vCfzrjjnFH1gAACagoAAtMOGVGNqOvAKmWo-h4E" -d chat_id="${TG_CHAT_ID}"
 fi
+
+b=$(grep '#### build completed successfully' $WORKDIR/rom/$name_rom/build.log -m1 || true)
 if [[ $b == *'#### build completed successfully'* ]]
   then
   echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
