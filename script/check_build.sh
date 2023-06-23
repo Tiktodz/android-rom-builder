@@ -16,7 +16,7 @@ curl -F document=@build.log "https://api.telegram.org/bot${TG_TOKEN}/sendDocumen
     -F chat_id="${TG_CHAT_ID}" \
     -F "disable_web_page_preview=true" \
     -F "parse_mode=html" \
-    -F caption="⛔${device} Build $name_rom Error⛔
+    -F caption="⛔${device} Build $name_rom Error⛔"
 fi
 
 b=$(grep '#### build completed successfully' $WORKDIR/rom/$name_rom/build.log -m1 || true)
